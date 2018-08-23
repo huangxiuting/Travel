@@ -5,7 +5,14 @@
     </div>
     <div class="search-content" ref="search" v-show="keyword">
       <ul>
-        <li v-for="item of list" class="search-item border-bottom" :key="item.id">{{item.name}}</li>
+        <li
+          v-for="item of list"
+          class="search-item border-bottom"
+          :key="item.id"
+          @click="handleCityClick(item.name)"
+        >
+          {{item.name}}
+        </li>
         <li class="search-item border-bottom" v-show="hasNoData">
           没有找到匹配数据
         </li>
@@ -54,6 +61,12 @@ export default {
         }
         this.list = result
       }, 100)
+    }
+  },
+  methods: {
+    handleCityClick (city) {
+      this.$store.dispatch('changeCity', city)
+      this.$router.push('/')
     }
   },
   mounted () {
